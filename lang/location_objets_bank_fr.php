@@ -9,4 +9,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
 	'location_objets_bank_titre' => 'Location d’objets - paiements',
+
+	// T
+	'texte_statut_partiel' => 'Partiellement payée',
+	'texte_statut_paye' => 'Payée',
 );
