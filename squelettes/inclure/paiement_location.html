@@ -1,0 +1,12 @@
+<BOUCLE_location(OBJETS_LOCATIONS){id_objets_location}{tout}>
+	[(#FORMULAIRE_PAYER_ACTE{
+		#PRIX*,
+		#ARRAY{
+			montant_ht,#PRIX_HT*,
+			auteur,#ID_AUTEUR,
+			id_objets_location,#ID_OBJETS_LOCATION,
+			tracking_id,#REFERENCE,
+			champs,#ARRAY{id_objets_location,#ID_OBJETS_LOCATION},
+		}
+	})]
+</BOUCLE_location>

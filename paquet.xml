@@ -25,10 +25,13 @@
 	<necessite nom="bank" compatibilite="[3.6.2;]" />
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 
+	<pipeline nom="formulaire_traiter" inclure="location_objets_bank_pipelines.php" />
+	<pipeline nom="recuperer_fond" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="bank_traiter_reglement" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="trig_bank_reglement_en_attente" inclure="location_objets_bank_pipelines.php" />
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objets_bank.php" />
 
-
+	<chemin path="squelettes" />
+	<chemin path="" />
 </paquet>
