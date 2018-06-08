@@ -31,17 +31,26 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return void
 **/
 function location_objets_bank_upgrade($nom_meta_base_version, $version_cible) {
+	include_spip('inc/config');
+
+	$version_actuelle = lire_config($nom_meta_base_version, 0);
+
+	// Définir les liaisons souhaités
+	if ($version_actuelle == 0) {
+		$config_location_objets = lire_config('location_objets', array());
+
+		$config_location_objets = array_merge(
+			$config_location_objets, array('statut_defaut' => 'encours')
+			);
+
+	}
+
 	$maj = array();
 	$maj['create'] = array(
 			array('maj_tables', array('spip_transactions', 'spip_objets_locations')),
-			array('ecrire_config', 'location_objets', array(
-				'location_objets' =>
-				array(
-					'statut_defaut' => 'encours',
-				)
-			)
-		),
-	);
+		array('ecrire_config', 'location_objets', $config_location_objets
+			),
+		);
 
 
 	include_spip('base/upgrade');
