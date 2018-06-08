@@ -132,56 +132,28 @@ function location_objets_bank_recuperer_fond($flux) {
  * @return array mixed
  */
 function location_objets_bank_bank_traiter_reglement($flux) {
-	// Si on est dans le bon cas d'un paiement de reservation et qu'il y a un id_reservation et que la reservation existe toujours
+	// Si on est dans le bon cas d'un paiement de location et qu'il y a un id_objets_location et que la location existe toujours
 
 	if ($id_transaction = $flux['args']['id_transaction'] and
 		$transaction = sql_fetsel("*", "spip_transactions", "id_transaction=" . intval($id_transaction)) and
 		$id_objets_location = $transaction['id_objets_location'] and
 		$location = sql_fetsel('statut, reference', 'spip_objets_locations', 'id_objets_location=' . intval($id_objets_location))) {
 
-			/*$paiement_detail = array();
-			if (!_request('gratuit')) {
-				if (!$montant_reservations_detail_total = _request('montant_reservations_detail_total')) {
-					include_spip('inc/reservation_bank');
-					$montant_reservations_detail_total = montant_reservations_detail_total($id_reservation);
-				}
+		set_request()
+		include_spip('action/editer_objet');
+		objet_instituer('objets_location', $id_objets_location, array(
+			'statut' => 'paye',
+			'date_paiement' => $transaction['date_transaction']
+		));
 
-				foreach (array_keys($montant_reservations_detail_total) as $id_reservation_detail) {
-					$paiement_detail[$id_reservation_detail] = _request('montant_reservations_detail_' . $id_reservation_detail);
-				}
+		// un message gentil pour l'utilisateur qui vient de payer, on lui rappelle son numero de commande
+		$flux['data'] .= "<br />" . _T('location_objets_bank:merci_de_votre_location_paiement', array(
+			'reference' => $location['reference']
+		));
 
-				if (!$montant_regle = array_sum($paiement_detail)) {
-					$montant_regle = $transaction['montant_regle'];
-				}
-				elseif (is_array($montant_regle)) {
-					$montant_regle = array_sum($montant_regle);
-				}
+	}
 
-
-
-				set_request('montant_regle', $montant_regle);
-
-				$set = array(
-					'montant_regle' => $montant_regle,
-				);
-
-				sql_updateq('spip_transactions', $set, 'id_transaction=' . $id_transaction);
-			}*/
-
-			include_spip('action/editer_objet');
-			objet_instituer('objets_location', $id_objets_location, array(
-				'statut' => 'paye',
-				'date_paiement' => $transaction['date_transaction']
-			));
-
-			// un message gentil pour l'utilisateur qui vient de payer, on lui rappelle son numero de commande
-			$flux['data'] .= "<br />" . _T('location_objets_bank:merci_de_votre_location_paiement', array(
-				'reference' => $location['reference']
-			));
-
-		}
-
-		return $flux;
+	return $flux;
 }
 
 /**
@@ -197,9 +169,8 @@ function location_objets_bank_trig_bank_reglement_en_attente($flux) {
 			'id_objets_location',
 			'spip_transactions',
 			'id_transaction=' . $flux['args']['id_transaction'])) {
-			spip_log($flux, 'teste');
-			print " id $id_objets_location";
 		include_spip('action/editer_objet');
+
 		objet_instituer('objets_location', $id_objets_location, array(
 			'statut' => 'attente'
 		));
