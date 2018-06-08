@@ -27,14 +27,17 @@ function location_objets_bank_formulaire_traiter($flux) {
 
 	// Affiche le formulaire de paiment au retour du formulaire réservation
 	if ($form == 'editer_objets_location') {
+		$id_objets_location = $flux['data']['id_objets_location'];
+		lob_inserer_transaction($id_objets_location);
 		if (
 			!_request('epsace_prive') and
 			!_request('gratuit')) {
+
 			$message_ok = preg_replace('/<p[^>]*>.*?<\/p>/i', '', $flux['data']['message_ok']);
 			$flux['data']['message_ok'] = '<div class="intro">' . recuperer_fond(
 				'inclure/paiement_location',
 				array(
-					'id_objets_location' => $flux['data']['id_objets_location']
+					'id_objets_location' => $id_objets_location
 				)
 			) . '</div>' . $message_ok;
 
@@ -109,7 +112,7 @@ function location_objets_bank_recuperer_fond($flux) {
 				'tracking_id',
 				'spip_transactions',
 				'id_transaction=' . $contexte['id_transaction']) and
-			$id_objets_location = sql_getfetsel('id_objets_location', 'spip_reservations', 'reference LIKE ' . sql_quote($tracking_id))) {
+			$id_objets_location = sql_getfetsel('id_objets_location', 'spip_objets_locations', 'reference LIKE ' . sql_quote($tracking_id))) {
 
 			$texte = '<strong>' . _T('location_objets_bank:location_paiement_reference', array(
 				'reference' => $tracking_id
@@ -194,6 +197,8 @@ function location_objets_bank_trig_bank_reglement_en_attente($flux) {
 			'id_objets_location',
 			'spip_transactions',
 			'id_transaction=' . $flux['args']['id_transaction'])) {
+			spip_log($flux, 'teste');
+			print " id $id_objets_location";
 		include_spip('action/editer_objet');
 		objet_instituer('objets_location', $id_objets_location, array(
 			'statut' => 'attente'

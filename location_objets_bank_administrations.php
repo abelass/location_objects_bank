@@ -51,7 +51,13 @@ function location_objets_bank_upgrade($nom_meta_base_version, $version_cible) {
 		array('ecrire_config', 'location_objets', $config_location_objets
 			),
 		);
-
+	$maj['1.0.2'] = array(
+		array('maj_tables', array('spip_objets_locations')),
+		array(
+			'sql_alter',
+			'TABLE spip_transactions ADD INDEX `id_objets_location` (`id_objets_location`)'
+		)
+	);
 
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
