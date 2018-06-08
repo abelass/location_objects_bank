@@ -139,7 +139,6 @@ function location_objets_bank_bank_traiter_reglement($flux) {
 		$id_objets_location = $transaction['id_objets_location'] and
 		$location = sql_fetsel('statut, reference', 'spip_objets_locations', 'id_objets_location=' . intval($id_objets_location))) {
 
-		set_request()
 		include_spip('action/editer_objet');
 		objet_instituer('objets_location', $id_objets_location, array(
 			'statut' => 'paye',
