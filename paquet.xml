@@ -25,6 +25,7 @@
 	<necessite nom="bank" compatibilite="[3.6.2;]" />
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 
+	<pipeline nom="formulaire_charger" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="formulaire_traiter" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="recuperer_fond" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="bank_traiter_reglement" inclure="location_objets_bank_pipelines.php" />

@@ -14,6 +14,29 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 }
 
 /**
+ * permet de modifier le tableau de valeurs envoyé par la fonction charger d’un formulaire CVT
+ *
+ * @pipeline formulaire_charger
+ *
+ * @param array $flux
+ *        	Données du pipeline
+ * @return array Données du pipeline
+ */
+function location_objets_bank_formulaire_charger($flux) {
+	$form = $flux['args']['form'];
+	if ($form == 'editer_objets_location') {
+		if ($flux['data']['checkout'] = _request('checkout')) {
+			$flux['data']['editable'] = FALSE;
+			$flux['data']['message_ok'] .= recuperer_fond('inclure/paiement_reservation', array(
+				'id_objets_location' => session_get('id_objets_location'),
+			));
+		}
+	}
+
+	return $flux;
+}
+
+/**
  * Intervient au traitement d'un formulaire CVT
  *
  * @pipeline formulaire_traiter
