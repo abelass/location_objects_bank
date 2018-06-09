@@ -27,7 +27,7 @@ function location_objets_bank_formulaire_charger($flux) {
 	if ($form == 'editer_objets_location') {
 		if ($flux['data']['checkout'] = _request('checkout')) {
 			$flux['data']['editable'] = FALSE;
-			$flux['data']['message_ok'] .= recuperer_fond('inclure/paiement_reservation', array(
+			$flux['data']['message_ok'] .= recuperer_fond('inclure/paiement_location', array(
 				'id_objets_location' => session_get('id_objets_location'),
 			));
 		}
