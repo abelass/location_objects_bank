@@ -1,7 +1,7 @@
 <paquet
 	prefix="location_objets_bank"
 	categorie="divers"
-	version="1.0.4"
+	version="1.0.5"
 	etat="dev"
 	compatibilite="[3.2.1;3.2.*]"
 	logo="prive/themes/spip/images/location_objets_bank-64.png"
@@ -25,7 +25,6 @@
 	<necessite nom="bank" compatibilite="[3.6.2;]" />
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 
-	<pipeline nom="formulaire_charger" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="formulaire_traiter" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="recuperer_fond" inclure="location_objets_bank_pipelines.php" />
 	<pipeline nom="bank_traiter_reglement" inclure="location_objets_bank_pipelines.php" />

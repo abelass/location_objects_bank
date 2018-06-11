@@ -30,7 +30,7 @@ function location_objets_bank_formulaire_traiter($flux) {
 		$id_objets_location = $flux['data']['id_objets_location'];
 		lob_inserer_transaction($id_objets_location);
 		if (
-			!_request('epsace_prive') and
+			!_request('espace_prive') and
 			!_request('gratuit')) {
 			$flux['data']['redirect'] = generer_url_public('paiement_location', "id_objets_location=$id_objets_location");
 		}
