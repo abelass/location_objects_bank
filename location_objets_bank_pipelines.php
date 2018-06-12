@@ -134,6 +134,9 @@ function location_objets_bank_bank_traiter_reglement($flux) {
 		include_spip('action/editer_objet');
 		objet_instituer('objets_location', $id_objets_location, array(
 			'statut' => 'paye',
+		));
+
+		objet_modifier('objets_location', $id_objets_location, array(
 			'date_paiement' => $transaction['date_transaction']
 		));
 
