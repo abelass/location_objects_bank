@@ -28,7 +28,7 @@ function location_objets_bank_formulaire_traiter($flux) {
 	// Affiche le formulaire de paiment au retour du formulaire réservation
 	if ($form == 'editer_objets_location') {
 		$id_objets_location = $flux['data']['id_objets_location'];
-		lob_inserer_transaction($id_objets_location);
+		lob_chercher_transaction($id_objets_location);
 		if (
 			!_request('espace_prive') and
 			!_request('gratuit')) {
