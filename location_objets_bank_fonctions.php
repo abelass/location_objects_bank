@@ -29,7 +29,6 @@ function lob_chercher_transaction($id_objets_location) {
 		'id_transaction', 'spip_transactions', 'id_objets_location=' . $id_objets_location . ' AND statut IN ("commande","ok")')) {
 		$inserer_transaction = charger_fonction("inserer_transaction", "bank");
 		$id_transaction = $inserer_transaction($donnees['montant'], $donnees['options']);
-		spip_log(1,'teste');
 	}
 	elseif (!$id_transaction = sql_getfetsel(
 		'id_transaction', 'spip_transactions', 'id_objets_location=' . $id_objets_location . ' AND statut IN ("ok")')) {
