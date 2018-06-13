@@ -26,13 +26,14 @@ function lob_chercher_transaction($id_objets_location) {
 
 	// Voir si on peut récupérer une transaction, sino on crée une.
 	if (!$id_transaction = sql_getfetsel(
-		'id_transaction', 'spip_transactions', 'id_objets_location=' . $id_objets_location . ' AND statut LIKE ("commande")')) {
+		'id_transaction', 'spip_transactions', 'id_objets_location=' . $id_objets_location . ' AND statut IN ("commande","ok")')) {
 		$inserer_transaction = charger_fonction("inserer_transaction", "bank");
 		$id_transaction = $inserer_transaction($donnees['montant'], $donnees['options']);
+		spip_log(1,'teste');
 	}
-	else {
+	elseif (!$id_transaction = sql_getfetsel(
+		'id_transaction', 'spip_transactions', 'id_objets_location=' . $id_objets_location . ' AND statut IN ("ok")')) {
 		$set = array('montant' => $donnees['montant']);
-
 		foreach($donnees['options'] as $cle => $valeur) {
 			if ($valeur and $cle != 'champs') {
 				$set[$cle] = $valeur;

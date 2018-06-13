@@ -29,6 +29,7 @@ function location_objets_bank_formulaire_traiter($flux) {
 	if ($form == 'editer_objets_location') {
 		$id_objets_location = $flux['data']['id_objets_location'];
 		lob_chercher_transaction($id_objets_location);
+
 		if (
 			!_request('espace_prive') and
 			!_request('gratuit')) {
@@ -168,6 +169,35 @@ function location_objets_bank_trig_bank_reglement_en_attente($flux) {
 		objet_instituer('objets_location', $id_objets_location, array(
 			'statut' => 'attente'
 		));
+	}
+
+	return $flux;
+}
+
+/**
+ * Ajout ou de modification le contenu des listes présentant les enfants d’un objet.
+ * Il reçoit dans args le nom de la page en cours et l’identifiant de l’objet,
+ * et dans data le code HTML présentant les enfants de l’objet.
+ *
+ * @pipeline affiche_enfants
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function location_objets_bank_affiche_enfants($flux) {
+
+	// Objets_informations sur les objets choisis.
+	if ($flux['args']['exec'] == 'objets_location') {
+		$texte .= recuperer_fond('prive/objets/liste/transactions_locations', array(
+			'id_objets_location' => $flux['args']['id_objets_location'],
+		));
+	}
+
+	if ($texte) {
+		if ($p = strpos($flux['data'], '<!--affiche_milieu-->')) {
+			$flux['data'] = substr_replace($flux['data'], $texte, $p, 0);
+		} else {
+			$flux['data'] .= $texte;
+		}
 	}
 
 	return $flux;
