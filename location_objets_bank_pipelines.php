@@ -142,7 +142,7 @@ function location_objets_bank_bank_traiter_reglement($flux) {
 		));
 
 		// un message gentil pour l'utilisateur qui vient de payer, on lui rappelle son numero de commande
-		$flux['data'] .= "<br />" . _T('location_objets_bank:merci_de_votre_location_paiement', array(
+		$flux['data'] .= "<br><br>" . _T('location_objets_bank:merci_de_votre_location_paiement', array(
 			'reference' => $location['reference']
 		));
 
