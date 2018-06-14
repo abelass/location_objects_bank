@@ -18,6 +18,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// T
 	'texte_statut_partiel' => 'Partiellement payée',
 	'texte_statut_paye' => 'Payée',
+	'titre_choix_paiement' => 'Choix du mode de paiement',
+	'titre_paiement' => 'Paiement',
 	'titre_paiement_location' => 'Paiement de la location',
 	'titre_paiement_vendeur' => 'Paiement :',
 	'titre_payer_location' => 'Payez la location'
