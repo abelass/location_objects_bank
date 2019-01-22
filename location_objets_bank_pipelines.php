@@ -33,7 +33,12 @@ function location_objets_bank_formulaire_traiter($flux) {
 		if (
 			!_request('espace_prive') and
 			!_request('gratuit')) {
-			$flux['data']['redirect'] = generer_url_public('paiement_location', "id_objets_location=$id_objets_location");
+				$flux['data']['redirect'] = generer_url_public(
+					'paiement_location',
+					[
+						'id_objets_location' => $id_objets_location,
+						'lang' => _request('lang'),
+					]);
 		}
 	}
 
