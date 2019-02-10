@@ -21,7 +21,7 @@
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 
 	<!-- Déclaration de pipelines -->
-	<pipeline nom="paiment_location_donnees" action='' />
+	<pipeline nom="paiement_location_donnees" action='' />
 
 	<!-- Appel de pipelines -->
 	<pipeline nom="formulaire_traiter" inclure="location_objets_bank_pipelines.php" />
