@@ -13,7 +13,10 @@
 #SET{donnees, #PIPELINE{
 		paiment_location_donnees,
 		#ARRAY{
-			args,#ARRAY{id_objets_location,#ID_OBJETS_LOCATION},
+			args,#ARRAY{
+				id_objets_location,#ID_OBJETS_LOCATION,
+				tableau, #ENV{tableau}
+			},
 			data,#ARRAY{
 							montant, #GET{total},
 							options, #GET{options}
