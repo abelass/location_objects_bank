@@ -11,9 +11,12 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'location_paiement_reference' => 'Référence du paiement : @reference@',
 	'location_objets_bank_titre' => 'Location d’objets - paiements',
 
-	// 	'merci_de_votre_reservation_paiement' => 'Nous avons bien validé votre réservation <b>@reference@</b>.',
+	// M
 	'merci_de_votre_location_paiement' => 'Nous avons bien validé votre location <b>@reference@</b>.',
 	'message_paiement_vendeur' => 'Mode de paiement : "@mode@",  voir <a href="@url@">détail</a>',
+
+	// P
+	'paiement_acompte' => 'Veuillez vous acquitter d\'un acompte de @acompte@',
 
 	// T
 	'texte_statut_partiel' => 'Partiellement payée',

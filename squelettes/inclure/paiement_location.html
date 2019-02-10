@@ -30,10 +30,18 @@
 	[(#GET{donnees}|serialize)]
 ]
 [(#ENV{tableau}|non)
+	[(#GET{donnees}|table_valeur{acompte}|?{
+		#SET{montant, #GET{donnees}|table_valeur{acompte}}
+		#SET{texte_acompte,
+			#VAL{location_objets_bank:paiement_acompte}
+				|_T{#ARRAY{acompte,#GET{montant}|appliquer_filtre{prix_formater}}}}
+		,
+		#SET{montant, #GET{donnees}|table_valeur{montant}}
+})]
 	[(#REM) Affiche le formulaire Paiement de Bank]
+	[<p class="acompte">(#GET{texte_acompte})</p>]
 	[(#FORMULAIRE_PAYER_ACTE{
-		#GET{donnees}|table_valeur{montant},
+		#GET{montant},
 		#GET{donnees}|table_valeur{options}}
 	)]
 ]
-
