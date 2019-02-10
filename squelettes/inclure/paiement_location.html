@@ -10,9 +10,15 @@
 	}
 </BOUCLE_location>
 
-#SET{donnees, #ARRAY{
-		montant, #GET{total},
-		options, #GET{options}
+#SET{donnees, #PIPELINE{
+		paiment_location_donnees,
+		#ARRAY{
+			args,#ARRAY{id_objets_location,#ID_OBJETS_LOCATION},
+			data,#ARRAY{
+							montant, #GET{total},
+							options, #GET{options}
+						}
+		}
 	}
 }
 
@@ -22,6 +28,9 @@
 ]
 [(#ENV{tableau}|non)
 	[(#REM) Affiche le formulaire Paiement de Bank]
-	[(#FORMULAIRE_PAYER_ACTE{#GET{total},#GET{options}})]
+	[(#FORMULAIRE_PAYER_ACTE{
+		#GET{donnees}|table_valeur{montant},
+		#GET{donnees}|table_valeur{options}}
+	)]
 ]
 
