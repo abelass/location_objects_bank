@@ -25,7 +25,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 function location_objets_bank_formulaire_traiter($flux) {
 	$form = $flux['args']['form'];
 
-	// Affiche le formulaire de paiment au retour du formulaire réservation
+	// Affiche le formulaire de paiement au retour du formulaire réservation
 	if ($form == 'editer_objets_location') {
 		$id_objets_location = $flux['data']['id_objets_location'];
 		lob_chercher_transaction($id_objets_location);
@@ -104,7 +104,7 @@ function location_objets_bank_recuperer_fond($flux) {
 			$flux['data']['texte'] .= $texte;
 		}
 
-		// Ajouter le message pour la référence su paiement par virement.
+		// Ajouter le message pour la référence du paiement par virement.
 		if ($fond == 'presta/virement/payer/attente' and
 			$tracking_id = sql_getfetsel(
 				'tracking_id',
@@ -135,15 +135,27 @@ function location_objets_bank_bank_traiter_reglement($flux) {
 	if ($id_transaction = $flux['args']['id_transaction'] and
 		$transaction = sql_fetsel("*", "spip_transactions", "id_transaction=" . intval($id_transaction)) and
 		$id_objets_location = $transaction['id_objets_location'] and
-		$location = sql_fetsel('statut, reference', 'spip_objets_locations', 'id_objets_location=' . intval($id_objets_location))) {
-
+		$location = sql_fetsel('statut, reference,montant_paye', 'spip_objets_locations', 'id_objets_location=' . intval($id_objets_location))) {
 		include_spip('action/editer_objet');
-		objet_instituer('objets_location', $id_objets_location, array(
-			'statut' => 'paye',
-		));
+
+		$fonction = charger_fonction('objets_location', 'prix');
+		$prix = $fonction($id_objets_location);
+		$montant = $transaction['montant'];
+		$montant_paye = $transaction['montant_regle'] + $location['montant_paye'];
 
 		objet_modifier('objets_location', $id_objets_location, array(
-			'date_paiement' => $transaction['date_transaction']
+			'date_paiement' => $transaction['date_transaction'],
+			'montant_paye' => $montant_paye,
+		));
+
+		$statut = 'paye';
+		if($montant_paye < $prix) {
+			$statut = 'partiel';
+			lob_chercher_transaction($id_objets_location);
+		}
+
+		objet_instituer('objets_location', $id_objets_location, array(
+			'statut' => $statut,
 		));
 
 		// un message gentil pour l'utilisateur qui vient de payer, on lui rappelle son numero de commande
