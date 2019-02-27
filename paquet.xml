@@ -18,7 +18,7 @@
 
 	<traduire module="location_objets_bank" reference="fr" gestionnaire="salvatore" />
 
-	<necessite nom="location_objets" compatibilite="[1.0.14;]" />
+	<necessite nom="location_objets" compatibilite="[1.4.3;]" />
 	<necessite nom="bank" compatibilite="[3.6.2;]" />
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 
